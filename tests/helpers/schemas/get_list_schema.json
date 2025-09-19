@@ -1,0 +1,32 @@
+{
+  "type": "array",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "",
+  "minItems": 1,
+  "uniqueItems": true,
+  "items": {
+    "type": "object",
+    "required": [
+      "userId",
+      "id",
+      "title",
+      "body"
+    ],
+    "properties": {
+      "userId": {
+        "type": "number"
+      },
+      "id": {
+        "type": "number"
+      },
+      "title": {
+        "type": "string",
+        "minLength": 1
+      },
+      "body": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

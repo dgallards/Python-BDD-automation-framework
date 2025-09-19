@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ feature.name }} - Report</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        .status-badge {
+            text-transform: capitalize;
+        }
+        .step-logs {
+            display: none;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="mb-4">
+            <h1 class="display-5"><i class="fa-solid fa-vial"></i> Feature: {{ feature.name }}</h1>
+            <p class="text-muted">Status:
+                <span class="badge 
+                    {% if feature.status == 'passed' %} bg-success
+                    {% elif feature.status == 'failed' %} bg-danger
+                    {% elif feature.status == 'skipped' %} bg-warning text-dark
+                    {% else %} bg-secondary
+                    {% endif %}
+                    status-badge">
+                    {{ feature.status }}
+                </span>
+            </p>
+        </div>
+
+        {% for scenario in feature.scenarios %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fa-solid fa-diagram-project"></i> Scenario: {{ scenario.name }}</h5>
+                <span class="badge 
+                    {% if scenario.status == 'passed' %} bg-success
+                    {% elif scenario.status == 'failed' %} bg-danger
+                    {% elif scenario.status == 'skipped' %} bg-warning text-dark
+                    {% else %} bg-secondary
+                    {% endif %} 
+                    status-badge">
+                    {{ scenario.status }}
+                </span>
+            </div>
+            <div class="card-body">
+                {% for step in scenario.steps %}
+                <div class="mb-3 border rounded p-3 
+                    {% if step.status == 'passed' %} border-success bg-white
+                    {% elif step.status == 'failed' %} border-danger bg-white
+                    {% elif step.status == 'skipped' %} border-warning bg-white
+                    {% else %} border-secondary bg-white
+                    {% endif %}
+                ">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>{{ step.name }}</strong>
+                            <span class="badge 
+                                {% if step.status == 'passed' %} bg-success
+                                {% elif step.status == 'failed' %} bg-danger
+                                {% elif step.status == 'skipped' %} bg-warning text-dark
+                                {% else %} bg-secondary
+                                {% endif %}
+                                status-badge ms-2">
+                                {{ step.status }}
+                            </span>
+                        </div>
+                        <button class="btn btn-sm btn-outline-secondary" onclick="toggleLogs(this)">
+                            <i class="fa-solid fa-chevron-down"></i> Show Logs
+                        </button>
+                    </div>
+                    <div class="step-logs mt-3">
+                        {% if step.logs %}
+                        <div class="mb-2">
+                            <strong>Logs:</strong>
+                            <pre><code>{{ step.logs }}</code></pre>
+                        </div>
+                        {% endif %}
+                        {% if step.error %}
+                        <div class="mb-2 text-danger">
+                            <strong>Error:</strong>
+                            <pre><code>{{ step.error }}</code></pre>
+                        </div>
+                        {% endif %}
+                        {% if not step.logs and not step.error %}
+                        <em class="text-muted">No logs or errors</em>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        function toggleLogs(button) {
+            const logsDiv = button.closest('.mb-3').querySelector('.step-logs');
+            const icon = button.querySelector('i');
+            const isVisible = logsDiv.style.display === 'block';
+            logsDiv.style.display = isVisible ? 'none' : 'block';
+            icon.classList.toggle('fa-chevron-down', isVisible);
+            icon.classList.toggle('fa-chevron-up', !isVisible);
+            button.innerHTML = icon.outerHTML + (isVisible ? " Show Logs" : " Hide Logs");
+        }
+    </script>
+</body>
+</html>
