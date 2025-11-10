@@ -25,7 +25,7 @@ Feature: Basic API testing
 
   Scenario: Create a new post
     Given the API endpoint is set to "https://jsonplaceholder.typicode.com/posts"
-    When prepare the body request with the data in "tests/helpers/data/new_post.json" 
+    When prepare the body request with the data in "data/new_post.json" 
     And a POST request is sent to the API with the body
     Then the response status code should be 201
     Then the response should match the schema in "tests/helpers/schemas/post_schema.json"
