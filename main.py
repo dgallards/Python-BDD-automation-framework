@@ -12,7 +12,7 @@ def run_behave():
             os.remove(file)
             print(f"Removed previous {file}")
 
-    tests = ['apis']
+    tests = ['apis']  # Lista de etiquetas de pruebas a ejecutar
 
     if tests:
         tags = ' or '.join([f'@{test}' for test in tests])

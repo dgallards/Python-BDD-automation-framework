@@ -28,7 +28,7 @@ En este curso, aprenderás a crear pruebas automatizadas usando el enfoque **Beh
 
 ### 3. Introducción a pruebas de APIs con Behave y Requests (45 min)  
 - Conceptos básicos de testing de APIs  
-- Instalación y uso de la librería **Requests**  
+- Uso de la librería **Requests**  
 - Validación de respuestas HTTP (status codes, headers, body)  
 - Creación de features y steps para pruebas de API  
 - **Ejemplo práctico**: probar una API pública con Behave  
@@ -36,7 +36,7 @@ En este curso, aprenderás a crear pruebas automatizadas usando el enfoque **Beh
 ---
 
 ### 4. Introducción a pruebas web con Selenium (45 min)  
-- Instalación de **Selenium** y drivers de navegador  
+- Uso de **Selenium** y drivers de navegador  
 - Abrir un navegador y navegar a una página  
 - Localización de elementos (id, name, CSS selectors, XPath)  
 - Interacciones básicas: clicks, inputs, formularios  
